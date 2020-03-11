@@ -7,8 +7,17 @@ const MapPreview = props => {
     let imagePreviewUrl;
 
     if (props.location) {
-        imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props.location.lat},${props.location.lng}&zoom=14&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C${props.location.lat},${props.location.lng}&key=${ENV.googleApiKey}`;
+        imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${
+            props.location.lat
+        },${
+            props.location.lng
+        }&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${
+            props.location.lat
+        },${props.location.lng}&key=${ENV.googleApiKey}`;
     }
+
+    console.log(imagePreviewUrl);
+    console.log(props.location);
 
     return (
         <TouchableOpacity onPress={props.onPress}>

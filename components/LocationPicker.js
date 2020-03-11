@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Alert, Button, StyleSheet, Text, View} from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -12,11 +12,14 @@ const LocationPicker = props => {
 
     const mapPickedLocation = props.navigation.getParam('pickedLocation');
 
+    const {onLocationPicked} = props;
+
     useEffect(() => {
         if (mapPickedLocation) {
             setPickedLocation(mapPickedLocation);
+            onLocationPicked(mapPickedLocation);
         }
-    }, [mapPickedLocation]);
+    }, [mapPickedLocation, onLocationPicked]);
 
     const verifyPermissions = async () => {
         const result = await Permissions.askAsync(Permissions.LOCATION);
@@ -43,6 +46,10 @@ const LocationPicker = props => {
                 timeout: 5000
             });
             setPickedLocation({
+                lat: location.coords.latitude,
+                lng: location.coords.longitude
+            });
+            props.onLocationPicked({
                 lat: location.coords.latitude,
                 lng: location.coords.longitude
             });
